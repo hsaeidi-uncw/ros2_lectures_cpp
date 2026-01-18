@@ -19,6 +19,14 @@ ament_target_dependencies(vel_pub_example rclcpp geometry_msgs)
 
 install(TARGETS vel_pub_example DESTINATION lib/${PROJECT_NAME})
 
+
+add_executable(pos_sub_example src/pos_sub_example.cpp)
+
+ament_target_dependencies(pos_sub_example rclcpp turtlesim)
+
+install(TARGETS pos_sub_example DESTINATION lib/${PROJECT_NAME})
+
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
