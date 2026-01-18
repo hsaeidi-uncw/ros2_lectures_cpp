@@ -12,6 +12,13 @@ find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(turtlesim REQUIRED)
 
+
+add_executable(vel_pub_example src/vel_pub_example.cpp)
+
+ament_target_dependencies(vel_pub_example rclcpp geometry_msgs)
+
+install(TARGETS vel_pub_example DESTINATION lib/${PROJECT_NAME})
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
