@@ -11,6 +11,13 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(turtlesim REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/ShortCmd.msg"
+  DEPENDENCIES std_msgs # Add packages that above messages depend on, in this case geometry_msgs for Sphere.msg
+)
+ament_export_dependencies(rosidl_default_runtime)
 
 
 add_executable(vel_pub_example src/vel_pub_example.cpp)
@@ -26,6 +33,17 @@ ament_target_dependencies(pos_sub_example rclcpp turtlesim)
 
 install(TARGETS pos_sub_example DESTINATION lib/${PROJECT_NAME})
 
+
+
+add_executable(shortcmd_pub_example src/shortcmd_pub_example.cpp)
+
+ament_target_dependencies(shortcmd_pub_example rclcpp geometry_msgs)
+
+rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} rosidl_typesupport_cpp)
+
+target_link_libraries(shortcmd_pub_example  "${cpp_typesupport_target}")
+
+install(TARGETS shortcmd_pub_example DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
